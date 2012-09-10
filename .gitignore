@@ -12,3 +12,5 @@
 .project
 .settings
 .pydevproject
+nipype.sublime-project
+nipype.sublime-workspace

@@ -157,6 +157,9 @@ class ConstrainedSphericalDeconvolution(CommandLine):
         else:
             return None
     def _gen_outfilename(self):
+        if self.inputs.out_filename != "":
+            return self.inputs.out_filename
+
         _, name , _ = split_filename(self.inputs.in_file)
         return name + '_CSD.mif'
 
@@ -203,7 +206,10 @@ class EstimateResponseForSH(CommandLine):
         else:
             return None
     def _gen_outfilename(self):
-        _, name , _ = split_filename(self.inputs.in_file)
+        if self.inputs.out_filename != "":
+            return self.inputs.out_filename
+
+	_, name , _ = split_filename(self.inputs.in_file)
         return name + '_ER.mif'
 
 def concat_files(bvec_file, bval_file, invert_x, invert_y, invert_z):

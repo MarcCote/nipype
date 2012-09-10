@@ -125,6 +125,9 @@ class DWI2Tensor(CommandLine):
         else:
             return None
     def _gen_outfilename(self):
+        if self.inputs.out_filename != "":
+            return self.inputs.out_filename
+
         _, name , _ = split_filename(self.inputs.in_file[0])
         return name + '_tensor.mif'
 
@@ -207,6 +210,9 @@ class Tensor2FractionalAnisotropy(CommandLine):
         else:
             return None
     def _gen_outfilename(self):
+        if self.inputs.out_filename != "":
+            return self.inputs.out_filename
+
         _, name , _ = split_filename(self.inputs.in_file)
         return name + '_FA.mif'
 
@@ -289,6 +295,9 @@ class MRMultiply(CommandLine):
         else:
             return None
     def _gen_outfilename(self):
+        if self.inputs.out_filename != "":
+            return self.inputs.out_filename
+
         _, name , _ = split_filename(self.inputs.in_files[0])
         return name + '_MRMult.mif'
 
@@ -480,6 +489,9 @@ class Threshold(CommandLine):
         else:
             return None
     def _gen_outfilename(self):
+        if self.inputs.out_filename != "":
+            return self.inputs.out_filename
+
         _, name , _ = split_filename(self.inputs.in_file)
         return name + '_thresh.mif'
 
