@@ -38,6 +38,11 @@ class DTIReconInputSpec(CommandLineInputSpec):
     b0_threshold = traits.Float(desc="""program will use b0 image with the given threshold to mask out high
         background of fa/adc maps. by default it will calculate threshold
         automatically. but if it failed, you need to set it manually.""", argstr="-b0_th")
+    no_exp = traits.Bool(desc="""do not write exp output.""", argstr="-no_exp")
+    no_eigen = traits.Bool(desc="""do not write eigen-value and eigen-vector output.""", argstr="-no_eigen")
+    no_tensor = traits.Bool(desc="""do not write tensor output.""", argstr="-no_tensor")
+    b0 = traits.Int(desc="""number of repeated b0 images on top. default is 1. the program 
+          assumes b0 images are on top.""", argstr="-b0")
 
 
 class DTIReconOutputSpec(TraitedSpec):
