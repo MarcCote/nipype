@@ -43,7 +43,7 @@ class DTIReconInputSpec(CommandLineInputSpec):
     no_eigen = traits.Bool(desc="""do not write eigen-value and eigen-vector output.""", argstr="-no_eigen")
     no_tensor = traits.Bool(desc="""do not write tensor output.""", argstr="-no_tensor")
     b0 = traits.Int(desc="""number of repeated b0 images on top. default is 1. the program 
-          assumes b0 images are on top.""", argstr="-b0 %i")
+          assumes b0 images are on top.""", argstr="-b0 %s")
 
 
 class DTIReconOutputSpec(TraitedSpec):
