@@ -25,7 +25,8 @@ class DTIReconInputSpec(CommandLineInputSpec):
                 argstr='-gm %s', mandatory=True)
     bvals = File(exists=True,desc = 'b values file', mandatory=True)
     n_averages = traits.Int(desc='Number of averages', argstr='-nex %s')
-    image_orientation_vectors = traits.List(traits.Float(), minlen=6, maxlen=6, desc="""specify image orientation vectors. if just one argument given,
+    image_orientation_vectors = traits.List(traits.Float(), minlen=6, maxlen=6, desc="""specify image 
+        orientation vectors. if just one argument given,
         will treat it as filename and read the orientation vectors from
         the file. if 6 arguments are given, will treat them as 6 float
         numbers and construct the 1st and 2nd vector and calculate the 3rd
@@ -42,7 +43,7 @@ class DTIReconInputSpec(CommandLineInputSpec):
     no_eigen = traits.Bool(desc="""do not write eigen-value and eigen-vector output.""", argstr="-no_eigen")
     no_tensor = traits.Bool(desc="""do not write tensor output.""", argstr="-no_tensor")
     b0 = traits.Int(desc="""number of repeated b0 images on top. default is 1. the program 
-          assumes b0 images are on top.""", argstr="-b0")
+          assumes b0 images are on top.""", argstr="-b0 %i")
 
 
 class DTIReconOutputSpec(TraitedSpec):
