@@ -21,7 +21,7 @@ class HARDIMatInputSpec(CommandLineInputSpec):
     bvecs = File(exists=True, desc = 'b vectors file',
                 argstr='%s', position=1, mandatory=True)
     bvals = File(exists=True,desc = 'b values file', mandatory=True)
-    out_file = File(exists=True, desc = 'output matrix file', argstr='%s', position=2)
+    out_file = File(exists=True, desc = 'output matrix file', position=2, mandatory=True)
     order = traits.Int(argsstr='-order %s', desc="""maximum order of spherical harmonics. must be even number. default
         is 4""")
     odf_file = File(exists=True, argstr='-odf %s', desc="""filename that contains the reconstruction points on a HEMI-sphere.
