@@ -42,7 +42,7 @@ class DTIReconInputSpec(CommandLineInputSpec):
     no_exp = traits.Bool(desc="""do not write exp output.""", argstr="-no_exp")
     no_eigen = traits.Bool(desc="""do not write eigen-value and eigen-vector output.""", argstr="-no_eigen")
     no_tensor = traits.Bool(desc="""do not write tensor output.""", argstr="-no_tensor")
-    b0 = traits.Int(desc="""number of repeated b0 images on top. default is 1. the program 
+    n_b0 = traits.Int(desc="""number of repeated b0 images on top. default is 1. the program 
           assumes b0 images are on top.""", argstr="-b0 %s")
 
 
@@ -95,20 +95,24 @@ class DTIRecon(CommandLine):
 
         outputs = self.output_spec().get()
 
-        #if self.inputs.no_eigen == True:
+        if self.inputs.no_eigen != True:
+            outputs['L1'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_e1.'+ output_type))
+            outputs['L2'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_e2.'+ output_type))
+            outputs['L3'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_e3.'+ output_type))
+            outputs['V1'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_v1.'+ output_type))
+            outputs['V2'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_v2.'+ output_type))
+            outputs['V3'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_v3.'+ output_type))
+
+        if self.inputs.no_exp != True:
+            outputs['exp'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_exp.'+ output_type))
+
+        if self.inputs.no_tensor != True:
+            outputs['tensor'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_tensor.'+ output_type))
 
         outputs['ADC'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_adc.'+ output_type))
-        outputs['B0'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_b0.'+ output_type))
-        #outputs['L1'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_e1.'+ output_type))
-        #outputs['L2'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_e2.'+ output_type))
-        #outputs['L3'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_e3.'+ output_type))
-        #outputs['exp'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_exp.'+ output_type))
+        outputs['B0'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_b0.'+ output_type))        
         outputs['FA'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_fa.'+ output_type))
         outputs['FA_color'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_fa_color.'+ output_type))
-        outputs['tensor'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_tensor.'+ output_type))
-        #outputs['V1'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_v1.'+ output_type))
-        #outputs['V2'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_v2.'+ output_type))
-        #outputs['V3'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_v3.'+ output_type))
 
         return outputs
 
