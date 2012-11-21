@@ -1167,8 +1167,6 @@ class CommandLine(BaseInterface):
                 return argstr % sep.join(str(elt) for elt in value)
         else:
             # Append options using format string.
-            print argstr
-            print value
             return argstr % value
 
     def _parse_inputs(self, skip=None):
