@@ -148,6 +148,10 @@ class DTITrackerInputSpec(CommandLineInputSpec):
     mask2_file = File(desc="second mask image", argstr="-m2 %s", position=4)
     mask2_threshold = traits.Float(desc="threshold value for the second mask image, if not given, the program will \
         try automatically find the threshold", position=5)
+    seed_mask_file = File(desc="seed mask image. if provided, only voxels that are in the mask will be used as seed", 
+        mandatory=True, argstr="-sm %s", position=6)
+    seed_mask_threshold = traits.Float(desc="threshold value for the seed mask image, if not given, the program will \
+        try automatically find the threshold", position=7)
     input_data_prefix = traits.Str("dti", desc="for internal naming use only", position=0, argstr="%s", usedefault=True)
     output_file = File("tracks.trk", "file containing tracks", argstr="%s", position=1, usedefault=True)
     output_mask = File(desc="output a binary mask file in analyze format", argstr="-om %s")
