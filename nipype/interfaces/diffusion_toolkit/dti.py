@@ -25,7 +25,7 @@ class DTIReconInputSpec(CommandLineInputSpec):
                 argstr='-gm %s', mandatory=True)
     bvals = File(exists=True,desc = 'b values file', mandatory=True)
     n_averages = traits.Int(desc='Number of averages', argstr='-nex %s')
-    image_orientation_vectors = traits.List(traits.Float(), minlen=6, maxlen=6, desc="""specify image 
+    image_orientation_vectors = traits.List(traits.Float(), minlen=6, maxlen=6, desc="""specify image
         orientation vectors. if just one argument given,
         will treat it as filename and read the orientation vectors from
         the file. if 6 arguments are given, will treat them as 6 float
@@ -42,7 +42,7 @@ class DTIReconInputSpec(CommandLineInputSpec):
     no_exp = traits.Bool(desc="""do not write exp output.""", argstr="-no_exp")
     no_eigen = traits.Bool(desc="""do not write eigen-value and eigen-vector output.""", argstr="-no_eigen")
     no_tensor = traits.Bool(desc="""do not write tensor output.""", argstr="-no_tensor")
-    n_b0 = traits.Int(desc="""number of repeated b0 images on top. default is 1. the program 
+    n_b0 = traits.Int(desc="""number of repeated b0 images on top. default is 1. the program
           assumes b0 images are on top.""", argstr="-b0 %s")
 
 
@@ -70,7 +70,7 @@ class DTIRecon(CommandLine):
     _cmd = 'dti_recon'
 
     def _create_gradient_matrix(self, bvecs_file, bvals_file):
-        _gradient_matrix_file = 'gradient_matrix.txt'
+        _gradient_matrix_file = out_prefix + 'gradient_matrix.txt'
         bvals = [val for val in  re.split('\s+', open(bvals_file).readline().strip())]
         bvecs_f = open(bvecs_file)
         bvecs_x = [val for val in  re.split('\s+', bvecs_f.readline().strip())]
@@ -79,7 +79,7 @@ class DTIRecon(CommandLine):
         bvecs_f.close()
         gradient_matrix_f = open(_gradient_matrix_file, 'w')
         for i in range(len(bvals)):
-            gradient_matrix_f.write("%s, %s, %s, %s\n"%(bvecs_x[i], bvecs_y[i], bvecs_z[i], bvals[i]))
+            gradient_matrix_f.write("%s, %s, %s, %s\n"%(str(-1*float(bvecs_x[i])), bvecs_y[i], bvecs_z[i], bvals[i]))
         gradient_matrix_f.close()
         return _gradient_matrix_file
 
@@ -110,7 +110,7 @@ class DTIRecon(CommandLine):
             outputs['tensor'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_tensor.'+ output_type))
 
         outputs['ADC'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_adc.'+ output_type))
-        outputs['B0'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_b0.'+ output_type))        
+        outputs['B0'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_b0.'+ output_type))
         outputs['FA'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_fa.'+ output_type))
         outputs['FA_color'] = os.path.abspath(fname_presuffix("",  prefix=out_prefix, suffix='_fa_color.'+ output_type))
 
@@ -148,7 +148,7 @@ class DTITrackerInputSpec(CommandLineInputSpec):
     mask2_file = File(desc="second mask image", argstr="-m2 %s", position=4)
     mask2_threshold = traits.Float(desc="threshold value for the second mask image, if not given, the program will \
         try automatically find the threshold", position=5)
-    seed_mask_file = File(desc="seed mask image. if provided, only voxels that are in the mask will be used as seed", 
+    seed_mask_file = File(desc="seed mask image. if provided, only voxels that are in the mask will be used as seed",
         mandatory=True, argstr="-sm %s", position=6)
     seed_mask_threshold = traits.Float(desc="threshold value for the seed mask image, if not given, the program will \
         try automatically find the threshold", position=7)
