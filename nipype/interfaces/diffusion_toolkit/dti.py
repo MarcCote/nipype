@@ -70,7 +70,7 @@ class DTIRecon(CommandLine):
     _cmd = 'dti_recon'
 
     def _create_gradient_matrix(self, bvecs_file, bvals_file):
-        _gradient_matrix_file = out_prefix + 'gradient_matrix.txt'
+        _gradient_matrix_file = self.inputs.out_prefix + 'gradient_matrix.txt'
         bvals = [val for val in  re.split('\s+', open(bvals_file).readline().strip())]
         bvecs_f = open(bvecs_file)
         bvecs_x = [val for val in  re.split('\s+', bvecs_f.readline().strip())]
